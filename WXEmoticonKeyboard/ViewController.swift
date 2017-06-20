@@ -45,15 +45,31 @@ class ViewController: UIViewController {
         */
         
         let info = notifiction.userInfo
+        let frame = info?[UIKeyboardFrameEndUserInfoKey] as! CGRect
         
-        print(info ?? "")
+        
+        UIView.animate(withDuration: 0.25) { 
+            
+            self.toolBottomContraint.constant = UIScreen.main.bounds.height - frame.origin.y
+        }
+        
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        textField.resignFirstResponder()
+    }
     
-    
-    @IBAction func changedKeyboardBtn(_ sender: Any) {
+    @IBAction func changedKeyboardBtn(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
         
+        if sender.isSelected {
+            textField.inputView = emoticonKeyBoard
+        } else {
+            textField.inputView = nil
+        }
+        textField.becomeFirstResponder()
+        textField.reloadInputViews()
         
     }
 

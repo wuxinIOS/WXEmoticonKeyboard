@@ -14,20 +14,21 @@
 import UIKit
 
 @objc protocol WXEmoticonBoardBottomToolBarDelegate {
-    func emoticonToolbar(emoticonToolbar: WXEmoticonKeyBoardBottomTool, didSelectItemAtIndex index: Int)
+    func emoticonKeyBoardBottomTool(emoticonToolbar: WXEmoticonKeyBoardBottomTool, didSelectItemAtIndex index: Int)
 }
 
 class WXEmoticonKeyBoardBottomTool: UIToolbar, UICollectionViewDelegateFlowLayout {
 
     private var collectionView : UICollectionView!
     fileprivate let reuseIdentifier = "toolBarCell"
-  
+    var selectedIndex: Int! = 0
+    
     weak var emoticonKeyBoardBottomToolBarDelegate: WXEmoticonBoardBottomToolBarDelegate?
     
     var dataSource  = [String]() {
         didSet{
             collectionView.reloadData()
-            let indexPath = IndexPath(item: 0, section: 0)
+            let indexPath = IndexPath(item: selectedIndex, section: 0)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
         }
     }
@@ -89,6 +90,18 @@ extension WXEmoticonKeyBoardBottomTool:UICollectionViewDelegate,UICollectionView
             let size = CGSize(width: width, height: height)
             return size
         }
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if selectedIndex != indexPath.item {
+            selectedIndex = indexPath.item
+            emoticonKeyBoardBottomToolBarDelegate?.emoticonKeyBoardBottomTool(emoticonToolbar: self, didSelectItemAtIndex: indexPath.item)
+            
+        }
+        
         
     }
     

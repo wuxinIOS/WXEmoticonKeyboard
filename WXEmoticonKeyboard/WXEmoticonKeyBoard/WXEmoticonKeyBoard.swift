@@ -38,12 +38,32 @@ extension WXEmoticonKeyBoard {
     fileprivate func setupBottomTool() {
         
         emoticonKeyBoardTool = WXEmoticonKeyBoardBottomTool(frame: CGRect(x: 0, y: self.frame.height - 40, width: UIScreen.main.bounds.width, height: 40))
+        emoticonKeyBoardTool.emoticonKeyBoardBottomToolBarDelegate = self
         emoticonKeyBoardTool.dataSource = ["最近使用","默认","Emoji","收藏","自定义","下载"]
         addSubview(emoticonKeyBoardTool)
         
         
+    }
+    
+}
+
+//MARK:--和协议相关
+extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate {
+    func emoticonKeyBoardBottomTool(emoticonToolbar: WXEmoticonKeyBoardBottomTool, didSelectItemAtIndex index: Int) {
+        print("点击了第\(index)个----\(emoticonKeyBoardTool.dataSource[index])")
         
     }
     
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+

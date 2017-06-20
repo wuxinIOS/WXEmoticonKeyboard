@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     lazy var emoticonKeyBoard : UIView! = {
         
-        let view = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 255, width: UIScreen.main.bounds.width, height: 255))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 216))
         view.backgroundColor = UIColor.orange
         return view
         
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         let frame = info?[UIKeyboardFrameEndUserInfoKey] as! CGRect
         
         
-        UIView.animate(withDuration: 0.25) { 
+        UIView.animate(withDuration: 2.5) {
             
             self.toolBottomContraint.constant = UIScreen.main.bounds.height - frame.origin.y
         }

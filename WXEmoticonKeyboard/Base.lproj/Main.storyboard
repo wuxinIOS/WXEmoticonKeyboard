@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WXEmoticonKeyboard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +20,57 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入文字" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ule-DX-MY1">
+                                <rect key="frame" x="50" y="145" width="275" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="q7D-Vf-oc0"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ip1-H2-ZFc">
+                                <rect key="frame" x="0.0" y="632" width="375" height="35"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5B8-N9-kcy">
+                                        <rect key="frame" x="10" y="0.0" width="58" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="表情键盘"/>
+                                        <state key="selected" title="文字键盘"/>
+                                        <connections>
+                                            <action selector="changedKeyboardBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nNS-MZ-wob"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="5B8-N9-kcy" secondAttribute="bottom" id="DiC-Tq-5op"/>
+                                    <constraint firstItem="5B8-N9-kcy" firstAttribute="leading" secondItem="ip1-H2-ZFc" secondAttribute="leading" constant="10" id="GtP-6A-FFi"/>
+                                    <constraint firstAttribute="height" constant="35" id="PAQ-uD-hXk"/>
+                                    <constraint firstItem="5B8-N9-kcy" firstAttribute="top" secondItem="ip1-H2-ZFc" secondAttribute="top" id="uOm-XS-Sk5"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.63992296309999996" green="0.75590800889999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Ule-DX-MY1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="125" id="3UO-DT-obI"/>
+                            <constraint firstItem="Ule-DX-MY1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="6Eh-eC-F4F"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ip1-H2-ZFc" secondAttribute="bottom" id="EgH-g5-nLW"/>
+                            <constraint firstItem="ip1-H2-ZFc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Lal-1c-M2v"/>
+                            <constraint firstAttribute="trailing" secondItem="ip1-H2-ZFc" secondAttribute="trailing" id="NwX-W0-I8w"/>
+                            <constraint firstAttribute="trailing" secondItem="Ule-DX-MY1" secondAttribute="trailing" constant="50" id="ZBk-4Q-z6h"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="changedKeyboardButton" destination="5B8-N9-kcy" id="RuB-p4-fwR"/>
+                        <outlet property="textField" destination="Ule-DX-MY1" id="QXO-bQ-fKv"/>
+                        <outlet property="toolBottomContraint" destination="EgH-g5-nLW" id="62v-1N-cmM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-186.40000000000001" y="138.98050974512745"/>
         </scene>
     </scenes>
 </document>

@@ -17,13 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var toolBottomContraint: NSLayoutConstraint!
     
     
-    lazy var emoticonKeyBoard : UIView! = {
-        
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 216))
-        view.backgroundColor = UIColor.orange
-        return view
-        
-    }()
+    lazy var emoticonKeyBoard : WXEmoticonKeyBoard! = WXEmoticonKeyBoard.sharedEmoticonKeyBoard
     
     
     

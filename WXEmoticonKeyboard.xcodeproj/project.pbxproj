@@ -15,6 +15,7 @@
 		CC765A181EF902750096B0A2 /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC765A171EF902750096B0A2 /* Emoticons.bundle */; };
 		CC765A1A1EF902AF0096B0A2 /* WXEmoticonKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC765A191EF902AF0096B0A2 /* WXEmoticonKeyBoard.swift */; };
 		CC765A1C1EF905CE0096B0A2 /* WXEmoticonKeyBoardBottomTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC765A1B1EF905CE0096B0A2 /* WXEmoticonKeyBoardBottomTool.swift */; };
+		CC765A1E1EF90C550096B0A2 /* WXEmoticonKeyBoardBottomToolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC765A1D1EF90C550096B0A2 /* WXEmoticonKeyBoardBottomToolCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		CC765A171EF902750096B0A2 /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
 		CC765A191EF902AF0096B0A2 /* WXEmoticonKeyBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WXEmoticonKeyBoard.swift; sourceTree = "<group>"; };
 		CC765A1B1EF905CE0096B0A2 /* WXEmoticonKeyBoardBottomTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WXEmoticonKeyBoardBottomTool.swift; sourceTree = "<group>"; };
+		CC765A1D1EF90C550096B0A2 /* WXEmoticonKeyBoardBottomToolCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WXEmoticonKeyBoardBottomToolCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				CC765A171EF902750096B0A2 /* Emoticons.bundle */,
 				CC765A191EF902AF0096B0A2 /* WXEmoticonKeyBoard.swift */,
 				CC765A1B1EF905CE0096B0A2 /* WXEmoticonKeyBoardBottomTool.swift */,
+				CC765A1D1EF90C550096B0A2 /* WXEmoticonKeyBoardBottomToolCell.swift */,
 			);
 			path = WXEmoticonKeyBoard;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				CC765A031EF8F4EE0096B0A2 /* AppDelegate.swift in Sources */,
 				CC765A1C1EF905CE0096B0A2 /* WXEmoticonKeyBoardBottomTool.swift in Sources */,
 				CC765A1A1EF902AF0096B0A2 /* WXEmoticonKeyBoard.swift in Sources */,
+				CC765A1E1EF90C550096B0A2 /* WXEmoticonKeyBoardBottomToolCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

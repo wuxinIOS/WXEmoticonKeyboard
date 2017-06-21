@@ -6,7 +6,6 @@
 //  Copyright © 2017年 BlackEr Gray. All rights reserved.
 //  表情键盘底部分类的工具条
 /**
- 
     由collectionView 作为主要展示界面
  
  */
@@ -19,9 +18,12 @@ import UIKit
 
 class WXEmoticonKeyBoardBottomTool: UIToolbar, UICollectionViewDelegateFlowLayout {
 
-    private var collectionView : UICollectionView!
+    fileprivate var collectionView : UICollectionView!
     fileprivate let reuseIdentifier = "toolBarCell"
     var selectedIndex: Int! = 0
+    
+    
+    
     
     weak var emoticonKeyBoardBottomToolBarDelegate: WXEmoticonBoardBottomToolBarDelegate?
     
@@ -60,6 +62,23 @@ class WXEmoticonKeyBoardBottomTool: UIToolbar, UICollectionViewDelegateFlowLayou
     
 }
 
+//MARK:--对外的方法
+extension WXEmoticonKeyBoardBottomTool {
+    
+    func emoticonKeyBoardBottomToolbar(scrollToIndex index:Int) {
+    
+        if selectedIndex! == index {
+            
+        } else {
+            
+            collectionView.selectItem(at:IndexPath(item: index, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+            selectedIndex = index
+        
+        }
+    }
+    
+}
+
 extension WXEmoticonKeyBoardBottomTool:UICollectionViewDelegate,UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -93,7 +112,7 @@ extension WXEmoticonKeyBoardBottomTool:UICollectionViewDelegate,UICollectionView
         
     }
     
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if selectedIndex != indexPath.item {
@@ -101,7 +120,6 @@ extension WXEmoticonKeyBoardBottomTool:UICollectionViewDelegate,UICollectionView
             emoticonKeyBoardBottomToolBarDelegate?.emoticonKeyBoardBottomTool(emoticonToolbar: self, didSelectItemAtIndex: indexPath.item)
             
         }
-        
         
     }
     

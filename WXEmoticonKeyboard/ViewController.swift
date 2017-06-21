@@ -31,20 +31,13 @@ class ViewController: UIViewController {
     
     @objc fileprivate func textFileChanged(notifiction:Notification) {
         
-        /**NSDictionary *info = [notif userInfo];
-        NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
-        CGSize keyboardSize = [value CGRectValue].size;
-        
-        NSLog(@"keyBoard:%f", keyboardSize.height);  //216
-        */
-        
         let info = notifiction.userInfo
         let frame = info?[UIKeyboardFrameEndUserInfoKey] as! CGRect
         
         
-        UIView.animate(withDuration: 2.5) {
-            
-            self.toolBottomContraint.constant = UIScreen.main.bounds.height - frame.origin.y
+        self.toolBottomContraint.constant = UIScreen.main.bounds.height - frame.origin.y
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
         }
         
         

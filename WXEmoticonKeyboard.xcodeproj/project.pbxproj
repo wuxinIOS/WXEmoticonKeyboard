@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC57CD721EFA13D100CAC18A /* WXEmoticonCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57CD711EFA13D100CAC18A /* WXEmoticonCollectionView.swift */; };
+		CC57CD741EFA17DC00CAC18A /* WXEmoticonDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57CD731EFA17DC00CAC18A /* WXEmoticonDataManager.swift */; };
 		CC765A031EF8F4EE0096B0A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC765A021EF8F4EE0096B0A2 /* AppDelegate.swift */; };
 		CC765A051EF8F4EE0096B0A2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC765A041EF8F4EE0096B0A2 /* ViewController.swift */; };
 		CC765A081EF8F4EE0096B0A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC765A061EF8F4EE0096B0A2 /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC57CD711EFA13D100CAC18A /* WXEmoticonCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WXEmoticonCollectionView.swift; sourceTree = "<group>"; };
+		CC57CD731EFA17DC00CAC18A /* WXEmoticonDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WXEmoticonDataManager.swift; sourceTree = "<group>"; };
 		CC7659FF1EF8F4EE0096B0A2 /* WXEmoticonKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WXEmoticonKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC765A021EF8F4EE0096B0A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC765A041EF8F4EE0096B0A2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 				CC765A191EF902AF0096B0A2 /* WXEmoticonKeyBoard.swift */,
 				CC765A1B1EF905CE0096B0A2 /* WXEmoticonKeyBoardBottomTool.swift */,
 				CC765A1D1EF90C550096B0A2 /* WXEmoticonKeyBoardBottomToolCell.swift */,
+				CC57CD711EFA13D100CAC18A /* WXEmoticonCollectionView.swift */,
+				CC57CD731EFA17DC00CAC18A /* WXEmoticonDataManager.swift */,
 			);
 			path = WXEmoticonKeyBoard;
 			sourceTree = "<group>";
@@ -161,7 +167,9 @@
 				CC765A051EF8F4EE0096B0A2 /* ViewController.swift in Sources */,
 				CC765A031EF8F4EE0096B0A2 /* AppDelegate.swift in Sources */,
 				CC765A1C1EF905CE0096B0A2 /* WXEmoticonKeyBoardBottomTool.swift in Sources */,
+				CC57CD721EFA13D100CAC18A /* WXEmoticonCollectionView.swift in Sources */,
 				CC765A1A1EF902AF0096B0A2 /* WXEmoticonKeyBoard.swift in Sources */,
+				CC57CD741EFA17DC00CAC18A /* WXEmoticonDataManager.swift in Sources */,
 				CC765A1E1EF90C550096B0A2 /* WXEmoticonKeyBoardBottomToolCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,6 +332,7 @@
 				CC765A131EF8F4EE0096B0A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

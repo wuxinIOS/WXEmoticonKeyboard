@@ -13,9 +13,9 @@
 	<key>group_name_tw</key>
 	<string>Emoji</string>
 	<key>display_only</key>
-	<integer>0</integer>
+	<string>0</string>
 	<key>group_type</key>
-	<integer>0</integer>
+	<string>1</string>
 	<key>emoticons</key>
 	<array>
 		<dict>

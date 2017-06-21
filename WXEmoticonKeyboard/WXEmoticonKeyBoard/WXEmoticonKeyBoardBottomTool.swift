@@ -30,14 +30,20 @@ class WXEmoticonKeyBoardBottomTool: UIToolbar, UICollectionViewDelegateFlowLayou
     var dataSource  = [String]() {
         didSet{
             collectionView.reloadData()
-            let indexPath = IndexPath(item: selectedIndex, section: 0)
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+            if dataSource.count != 0 {
+                let indexPath = IndexPath(item: selectedIndex, section: 0)
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+            }
         }
     }
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        let a = WXEmoticonDataManager.sharedEmoticonDataMaganer
+        print("单列2\(a)")
+        
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -103,11 +109,18 @@ extension WXEmoticonKeyBoardBottomTool:UICollectionViewDelegate,UICollectionView
         
         if dataSource.count == 0 {
             return CGSize.zero
+        } else if dataSource.count < 4 {
+            let width:CGFloat = UIScreen.main.bounds.width / CGFloat(dataSource.count) - 0.01
+            let height = collectionView.frame.height
+            let size = CGSize(width: width, height: height)
+            return size
         } else {
+            
             let width:CGFloat = 100 - 0.01
             let height = collectionView.frame.height
             let size = CGSize(width: width, height: height)
             return size
+
         }
         
     }

@@ -21,7 +21,18 @@ class WXEmoticonKeyBoard: UIView {
     let pageControlHeight:CGFloat! = 15
     let bottomToolBarHeight:CGFloat! = 40
     let emoticonMainCollectionViewHeight:CGFloat! = 161
-    var dataSource = ["最近使用","默认","Emoji","自定义","下载","收藏"]
+    lazy var dataSource:[String] = {
+        
+        var string = [String]()
+        for emoticonPackage in WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray {
+            let name = emoticonPackage.group_name_cn
+            string.append(name!)
+            
+        }
+        return string
+        
+    }()
+    
     
         //MARK:--表情键盘底部分类工具条
     var emoticonKeyBoardTool : WXEmoticonKeyBoardBottomTool!
@@ -38,6 +49,9 @@ class WXEmoticonKeyBoard: UIView {
     private override init(frame: CGRect) {
         super.init(frame:frame)
         setupUI()
+        let d = WXEmoticonDataManager.sharedEmoticonDataMaganer
+        print("单列\(d)")
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

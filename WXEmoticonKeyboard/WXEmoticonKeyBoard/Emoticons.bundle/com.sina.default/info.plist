@@ -13,9 +13,9 @@
 	<key>group_name_en</key>
 	<string>Default</string>
 	<key>display_only</key>
-	<integer>0</integer>
+	<string>0</string>
 	<key>group_type</key>
-	<integer>0</integer>
+	<string>2</string>
 	<key>emoticons</key>
 	<array>
 		<dict>

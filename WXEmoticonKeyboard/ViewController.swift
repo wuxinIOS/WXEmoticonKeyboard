@@ -12,7 +12,7 @@ class ViewController: UIViewController,WXEmoticonKeyBoardDelegate {
 
     @IBOutlet weak var changedKeyboardButton: UIButton!
     
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textField: WXEmoticonTextView!
     
     @IBOutlet weak var toolBottomContraint: NSLayoutConstraint!
     
@@ -62,21 +62,20 @@ class ViewController: UIViewController,WXEmoticonKeyBoardDelegate {
         
     }
 
-    func emoticonKeyBoard(_ emoticonKeyBoard: WXEmoticonKeyBoard, delectedEmotion: Any, deleteID: String) {
+    func emoticonKeyBoard(_ emoticonKeyBoard: WXEmoticonKeyBoard, delectedEmotion: Any, deleteID: String?) {
         self.textField.deleteBackward()
-        print("删除--\(delectedEmotion)---\(deleteID)")
+        print("删除")
     }
     
     func emoticonKeyBoard(_ emoticonKeyBoard: WXEmoticonKeyBoard, selectedEmotion: Any, selectedID: String) {
         
         if selectedEmotion is String {
             let emoji = selectedEmotion as! String
-            let text = self.textField.text ?? ""
-            self.textField.text = text + emoji
+            self.textField.insertEmoticon(emoticonPath: emoji)
         } else {
-            let emoji = selectedEmotion as? (String,String)
-            let text = self.textField.text ?? ""
-            self.textField.text = text + (emoji?.0)!
+            let emoji = selectedEmotion as? (String,String,String)
+            _ = self.textField.text ?? ""
+            self.textField.insertEmoticon(emoticonPath:(emoji?.2)!)
         }
         
     }

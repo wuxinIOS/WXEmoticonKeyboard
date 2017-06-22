@@ -15,7 +15,7 @@ import UIKit
 @objc protocol WXEmoticonKeyBoardDelegate:NSObjectProtocol {
     
     @objc optional func emoticonKeyBoard(_ emoticonKeyBoard:WXEmoticonKeyBoard,selectedEmotion:Any,selectedID:String)
-    @objc optional func emoticonKeyBoard(_ emoticonKeyBoard:WXEmoticonKeyBoard,delectedEmotion:Any,deleteID:String)
+    @objc optional func emoticonKeyBoard(_ emoticonKeyBoard:WXEmoticonKeyBoard,delectedEmotion:Any,deleteID:String?)
 }
 
 class WXEmoticonKeyBoard: UIView {
@@ -75,10 +75,21 @@ class WXEmoticonKeyBoard: UIView {
 extension WXEmoticonKeyBoard {
     
     fileprivate func setupUI() {
+        
+        
+        
         setupBottomTool()
         setupCollectionView()
         setupPageControl()
 
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 1))
+        view.backgroundColor = UIColor.lightGray
+        addSubview(view)
+        
+        let view1 = UIView(frame: CGRect(x: 0, y: self.bounds.height - 1, width: UIScreen.main.bounds.width, height: 1))
+        view1.backgroundColor = UIColor.lightGray
+        addSubview(view1)
+        
     }
     
     
@@ -103,6 +114,7 @@ extension WXEmoticonKeyBoard {
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = UIColor.red
         pageControl.isUserInteractionEnabled = false
+        pageControl.backgroundColor = UIColor.white
         addSubview(pageControl)
     }
     
@@ -152,23 +164,12 @@ extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate,WXEmoticonColl
     
     //删除
     func emoticonCollectionView(_ collectionView: WXEmoticonCollectionView, deleteDefaultEmoticon: WXEmoticonModel?, deleteEmojiEmoticon: WXEmoticonEmojiModel?) {
-        print("删除")
         if let delegate = emoticonKeyBoardDelegate {
             if delegate.responds(to: #selector(WXEmoticonKeyBoardDelegate.emoticonKeyBoard(_:delectedEmotion:deleteID:))) {
                 
-                if let emoticon = deleteDefaultEmoticon{//默认的包
-                    
-                    let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[0]
-                    let emoticon = (emoticon.chs ?? "",emoticon.cht ?? "")
-                    delegate.emoticonKeyBoard!(self, delectedEmotion: emoticon,deleteID:package.id!)
-                    
-                    
-                } else {//emoji包
-                    
-                    let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[0]
-                    
-                    delegate.emoticonKeyBoard!(self, delectedEmotion: deleteEmojiEmoticon?.emoji ?? "",deleteID:package.id!)
-                }
+                
+                delegate.emoticonKeyBoard!(self, delectedEmotion: deleteEmojiEmoticon?.emoji ?? "",deleteID:nil)
+                
                 
                 
             }
@@ -177,16 +178,15 @@ extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate,WXEmoticonColl
     }
     
     func emoticonCollectionView(_ collectionView: WXEmoticonCollectionView, selectDefaultEmoticon: WXEmoticonModel?, selectEmojiEmoticon: WXEmoticonEmojiModel?) {
-        print("选择----\(selectDefaultEmoticon)---\(selectEmojiEmoticon)")
         
         if let delegate = emoticonKeyBoardDelegate {
             if delegate.responds(to: #selector(WXEmoticonKeyBoardDelegate.emoticonKeyBoard(_:selectedEmotion:selectedID:))) {
                 if let emoticon = selectDefaultEmoticon{//默认的包
                     let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[0]
-                    let emoticon = (emoticon.chs ?? "",emoticon.cht ?? "")
+                    let emoticon = (emoticon.chs ?? "",emoticon.cht ?? "",emoticon.pngPath ?? "")
                     delegate.emoticonKeyBoard!(self, selectedEmotion: emoticon,selectedID:package.id!)
                 } else {//emoji包
-                    let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[0]
+                    let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[1]
                     
                     delegate.emoticonKeyBoard!(self, selectedEmotion: selectEmojiEmoticon?.emoji ?? "", selectedID: package.id!)
                 }

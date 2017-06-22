@@ -21,15 +21,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入文字" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ule-DX-MY1">
-                                <rect key="frame" x="50" y="145" width="275" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="q7D-Vf-oc0"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ip1-H2-ZFc">
                                 <rect key="frame" x="0.0" y="632" width="375" height="35"/>
                                 <subviews>
@@ -55,20 +46,29 @@
                                     <constraint firstItem="5B8-N9-kcy" firstAttribute="top" secondItem="ip1-H2-ZFc" secondAttribute="top" id="uOm-XS-Sk5"/>
                                 </constraints>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ee3-Ui-feL" customClass="WXEmoticonTextView" customModule="WXEmoticonKeyboard" customModuleProvider="target">
+                                <rect key="frame" x="50" y="80" width="275" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="WI5-zY-Hzp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.63992296309999996" green="0.75590800889999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Ule-DX-MY1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="125" id="3UO-DT-obI"/>
-                            <constraint firstItem="Ule-DX-MY1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="6Eh-eC-F4F"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ip1-H2-ZFc" secondAttribute="bottom" id="EgH-g5-nLW"/>
                             <constraint firstItem="ip1-H2-ZFc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Lal-1c-M2v"/>
                             <constraint firstAttribute="trailing" secondItem="ip1-H2-ZFc" secondAttribute="trailing" id="NwX-W0-I8w"/>
-                            <constraint firstAttribute="trailing" secondItem="Ule-DX-MY1" secondAttribute="trailing" constant="50" id="ZBk-4Q-z6h"/>
+                            <constraint firstItem="Ee3-Ui-feL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="60" id="Q5e-ec-gmy"/>
+                            <constraint firstAttribute="trailing" secondItem="Ee3-Ui-feL" secondAttribute="trailing" constant="50" id="XHw-QC-fin"/>
+                            <constraint firstItem="Ee3-Ui-feL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="jiH-kU-S9D"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="changedKeyboardButton" destination="5B8-N9-kcy" id="RuB-p4-fwR"/>
-                        <outlet property="textField" destination="Ule-DX-MY1" id="QXO-bQ-fKv"/>
+                        <outlet property="textField" destination="Ee3-Ui-feL" id="VNw-SK-HqW"/>
                         <outlet property="toolBottomContraint" destination="EgH-g5-nLW" id="62v-1N-cmM"/>
                     </connections>
                 </viewController>

@@ -149,8 +149,10 @@ class WXEmoticonCollectionViewCell: UICollectionViewCell {
                 //删除
                 if let delegate = emoticonCollectionViewCellDelegate {
                     if delegate.responds(to: #selector(WXEmoticonCollectionViewCellDelegate.emoticonCollectionViewCell(_:deleteDefaultEmoticon:deleteEmojiEmoticon:))) {
-                         delegate.emoticonCollectionViewCell!(self, deleteDefaultEmoticon: nil, deleteEmojiEmoticon: nil)
                         
+                            
+                            delegate.emoticonCollectionViewCell!(self, deleteDefaultEmoticon: nil, deleteEmojiEmoticon: nil)
+                      
                     }
                 }
                 

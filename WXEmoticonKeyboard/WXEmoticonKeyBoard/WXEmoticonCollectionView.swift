@@ -8,9 +8,14 @@
 
 import UIKit
 
-@objc protocol WXEmoticonCollectionViewScrollDelegate:NSObjectProtocol {
+@objc protocol WXEmoticonCollectionViewDelegate:NSObjectProtocol {
     
     func emoticonCollectionView(_ collectionView:WXEmoticonCollectionView,scrollToIndexPaht indexPath:IndexPath)
+    //删除
+    @objc optional func emoticonCollectionView(_ collectionView:WXEmoticonCollectionView,deleteDefaultEmoticon: WXEmoticonModel?, deleteEmojiEmoticon: WXEmoticonEmojiModel?)
+    
+    //选择
+    @objc optional func emoticonCollectionView(_ collectionView:WXEmoticonCollectionView,selectDefaultEmoticon: WXEmoticonModel?, selectEmojiEmoticon: WXEmoticonEmojiModel?)
 }
 
 
@@ -18,7 +23,7 @@ import UIKit
 class WXEmoticonCollectionView: UICollectionView {
 
     
-    weak var emoticonCollectionViewScrollDelegate: WXEmoticonCollectionViewScrollDelegate?
+    weak var emoticonCollectionViewDelegate: WXEmoticonCollectionViewDelegate?
     
     let reuseIdentifier = "WXEmoticonCollectionViewCell"
     
@@ -60,7 +65,7 @@ class WXEmoticonCollectionView: UICollectionView {
 
 }
 
-extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource {
+extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource,WXEmoticonCollectionViewCellDelegate {
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -97,7 +102,7 @@ extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollecti
         }
         
         cell.emotionArray = emoticons
-        
+        cell.emoticonCollectionViewCellDelegate = self
         
         return cell
     }
@@ -116,10 +121,10 @@ extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollecti
         
         let indexPath = self.indexPathForItem(at: scrollView.contentOffset)
         
-        if let delegate =  emoticonCollectionViewScrollDelegate,
+        if let delegate =  emoticonCollectionViewDelegate,
             let indexPath = indexPath {
             
-            if delegate.responds(to: #selector(WXEmoticonCollectionViewScrollDelegate.emoticonCollectionView(_:scrollToIndexPaht:))) {
+            if delegate.responds(to: #selector(WXEmoticonCollectionViewDelegate.emoticonCollectionView(_:scrollToIndexPaht:))) {
                 
                 delegate.emoticonCollectionView(self, scrollToIndexPaht: indexPath)
             }
@@ -133,10 +138,10 @@ extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollecti
         
         let indexPath = self.indexPathForItem(at: scrollView.contentOffset)
         
-        if let delegate =  emoticonCollectionViewScrollDelegate,
+        if let delegate =  emoticonCollectionViewDelegate,
             let indexPath = indexPath {
             
-            if delegate.responds(to: #selector(WXEmoticonCollectionViewScrollDelegate.emoticonCollectionView(_:scrollToIndexPaht:))) {
+            if delegate.responds(to: #selector(WXEmoticonCollectionViewDelegate.emoticonCollectionView(_:scrollToIndexPaht:))) {
                 
                 delegate.emoticonCollectionView(self, scrollToIndexPaht: indexPath)
             }
@@ -144,6 +149,34 @@ extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollecti
         }
         
     }
+    
+    
+    func emoticonCollectionViewCell(_ cell: WXEmoticonCollectionViewCell, deleteDefaultEmoticon: WXEmoticonModel?, deleteEmojiEmoticon: WXEmoticonEmojiModel?) {
+        
+        if let delegate =  emoticonCollectionViewDelegate{
+            
+            if delegate.responds(to: #selector(WXEmoticonCollectionViewDelegate.emoticonCollectionView(_:deleteDefaultEmoticon:deleteEmojiEmoticon:))) {
+                
+                delegate.emoticonCollectionView!(self, deleteDefaultEmoticon: deleteDefaultEmoticon, deleteEmojiEmoticon: deleteEmojiEmoticon)
+            }
+            
+        }
+    }
+    
+    func emoticonCollectionViewCell(_ cell: WXEmoticonCollectionViewCell, selectDefaultEmoticon: WXEmoticonModel?, selectEmojiEmoticon: WXEmoticonEmojiModel?) {
+        
+        if let delegate =  emoticonCollectionViewDelegate{
+            
+            if delegate.responds(to: #selector(WXEmoticonCollectionViewDelegate.emoticonCollectionView(_:selectDefaultEmoticon:selectEmojiEmoticon:))) {
+                
+                delegate.emoticonCollectionView!(self, selectDefaultEmoticon: selectDefaultEmoticon, selectEmojiEmoticon: selectEmojiEmoticon)
+            }
+            
+        }
+        
+        
+    }
+    
 }
 
 

@@ -11,6 +11,13 @@
 
 import UIKit
 
+
+@objc protocol WXEmoticonKeyBoardDelegate:NSObjectProtocol {
+    
+    @objc optional func emoticonKeyBoard(_ emoticonKeyBoard:WXEmoticonKeyBoard,selectedEmotion:Any,selectedID:String)
+    @objc optional func emoticonKeyBoard(_ emoticonKeyBoard:WXEmoticonKeyBoard,delectedEmotion:Any,deleteID:String)
+}
+
 class WXEmoticonKeyBoard: UIView {
     
         //MARK:--表情键盘单例
@@ -21,6 +28,10 @@ class WXEmoticonKeyBoard: UIView {
     let pageControlHeight:CGFloat! = 15
     let bottomToolBarHeight:CGFloat! = 40
     let emoticonMainCollectionViewHeight:CGFloat! = 161
+    
+    
+    weak var emoticonKeyBoardDelegate:WXEmoticonKeyBoardDelegate?
+    
     lazy var dataSource:[String] = {
         
         var string = [String]()
@@ -78,7 +89,7 @@ extension WXEmoticonKeyBoard {
         let countArray = WXEmoticonDataManager.sharedEmoticonDataMaganer.numberOfItem(3, 7)
         emoticonMainCollectionView = WXEmoticonCollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: emoticonMainCollectionViewHeight), section: countArray)
         
-        emoticonMainCollectionView.emoticonCollectionViewScrollDelegate = self
+        emoticonMainCollectionView.emoticonCollectionViewDelegate = self
         
         addSubview(emoticonMainCollectionView)
         
@@ -110,7 +121,7 @@ extension WXEmoticonKeyBoard {
 
 
 //MARK:--和协议相关
-extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate,WXEmoticonCollectionViewScrollDelegate {
+extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate,WXEmoticonCollectionViewDelegate {
     func emoticonKeyBoardBottomTool(emoticonToolbar: WXEmoticonKeyBoardBottomTool, didSelectItemAtIndex index: Int) {
         
         //print("点击了第\(index)个----\(emoticonKeyBoardTool.dataSource[index])")
@@ -139,6 +150,50 @@ extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate,WXEmoticonColl
         
     }
     
+    //删除
+    func emoticonCollectionView(_ collectionView: WXEmoticonCollectionView, deleteDefaultEmoticon: WXEmoticonModel?, deleteEmojiEmoticon: WXEmoticonEmojiModel?) {
+        print("删除")
+        if let delegate = emoticonKeyBoardDelegate {
+            if delegate.responds(to: #selector(WXEmoticonKeyBoardDelegate.emoticonKeyBoard(_:delectedEmotion:deleteID:))) {
+                
+                if let emoticon = deleteDefaultEmoticon{//默认的包
+                    
+                    let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[0]
+                    let emoticon = (emoticon.chs ?? "",emoticon.cht ?? "")
+                    delegate.emoticonKeyBoard!(self, delectedEmotion: emoticon,deleteID:package.id!)
+                    
+                    
+                } else {//emoji包
+                    
+                    let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[0]
+                    
+                    delegate.emoticonKeyBoard!(self, delectedEmotion: deleteEmojiEmoticon?.emoji ?? "",deleteID:package.id!)
+                }
+                
+                
+            }
+        }
+        
+    }
+    
+    func emoticonCollectionView(_ collectionView: WXEmoticonCollectionView, selectDefaultEmoticon: WXEmoticonModel?, selectEmojiEmoticon: WXEmoticonEmojiModel?) {
+        print("选择----\(selectDefaultEmoticon)---\(selectEmojiEmoticon)")
+        
+        if let delegate = emoticonKeyBoardDelegate {
+            if delegate.responds(to: #selector(WXEmoticonKeyBoardDelegate.emoticonKeyBoard(_:selectedEmotion:selectedID:))) {
+                if let emoticon = selectDefaultEmoticon{//默认的包
+                    let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[0]
+                    let emoticon = (emoticon.chs ?? "",emoticon.cht ?? "")
+                    delegate.emoticonKeyBoard!(self, selectedEmotion: emoticon,selectedID:package.id!)
+                } else {//emoji包
+                    let package = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[0]
+                    
+                    delegate.emoticonKeyBoard!(self, selectedEmotion: selectEmojiEmoticon?.emoji ?? "", selectedID: package.id!)
+                }
+            }
+        }
+
+    }
     
 }
 

@@ -8,6 +8,14 @@
 
 import UIKit
 
+@objc protocol WXEmoticonCollectionViewCellDelegate:NSObjectProtocol {
+    
+    @objc optional func emoticonCollectionViewCell(_ cell:WXEmoticonCollectionViewCell,selectDefaultEmoticon:WXEmoticonModel?, selectEmojiEmoticon:WXEmoticonEmojiModel? )
+    
+    @objc optional func emoticonCollectionViewCell(_ cell:WXEmoticonCollectionViewCell,deleteDefaultEmoticon:WXEmoticonModel?, deleteEmojiEmoticon:WXEmoticonEmojiModel?)
+    
+}
+
 class WXEmoticonCollectionViewCell: UICollectionViewCell {
     
     let row = 3
@@ -18,6 +26,9 @@ class WXEmoticonCollectionViewCell: UICollectionViewCell {
     private let margin: UIEdgeInsets = UIEdgeInsetsMake(0, 10, 10, 10) //边缘
     private let emoticonWidth: CGFloat = 32 //emoji表情显示的宽
    
+    weak var emoticonCollectionViewCellDelegate:WXEmoticonCollectionViewCellDelegate?
+    
+    
     //表情点击范围的宽
     private var itemWidth: CGFloat {
         return (self.bounds.width - margin.left - margin.right) / CGFloat(col)
@@ -136,16 +147,27 @@ class WXEmoticonCollectionViewCell: UICollectionViewCell {
         if let index = indexWithLocation(location: tap.location(in: self)) {
             if index == 20 {
                 //删除
-                print("点击删除按钮")
-                
+                if let delegate = emoticonCollectionViewCellDelegate {
+                    if delegate.responds(to: #selector(WXEmoticonCollectionViewCellDelegate.emoticonCollectionViewCell(_:deleteDefaultEmoticon:deleteEmojiEmoticon:))) {
+                         delegate.emoticonCollectionViewCell!(self, deleteDefaultEmoticon: nil, deleteEmojiEmoticon: nil)
+                        
+                    }
+                }
                 
             } else if (index < 20) && index < emoticons.count {
-                let emoticon = emoticons[index]
-                print(emoticon)
-//                delegate?.emoticonView(self, didSelectEmoticon: emoticon)
-                
-                
-                
+               // let emoticon = emoticons[index]
+                if let delegate = emoticonCollectionViewCellDelegate {
+                    if delegate.responds(to: #selector(WXEmoticonCollectionViewCellDelegate.emoticonCollectionViewCell(_:deleteDefaultEmoticon:deleteEmojiEmoticon:))) {
+                        if let emoticon = emotionArray![index] as? WXEmoticonModel {
+                            
+                            delegate.emoticonCollectionViewCell!(self, selectDefaultEmoticon: emoticon, selectEmojiEmoticon: nil)
+                        } else {
+                            let emoticon = emotionArray![index] as! WXEmoticonEmojiModel
+                           
+                            delegate.emoticonCollectionViewCell!(self, selectDefaultEmoticon: nil, selectEmojiEmoticon: emoticon)
+                        }
+                    }
+                }
             }
         }
 

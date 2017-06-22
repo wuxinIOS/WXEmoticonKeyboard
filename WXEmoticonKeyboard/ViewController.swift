@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,WXEmoticonKeyBoardDelegate {
 
     @IBOutlet weak var changedKeyboardButton: UIButton!
     
@@ -26,6 +26,8 @@ class ViewController: UIViewController {
         
         textField.becomeFirstResponder()
         NotificationCenter.default.addObserver(self, selector: #selector(textFileChanged), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
+        emoticonKeyBoard.emoticonKeyBoardDelegate = self
         
     }
     
@@ -60,6 +62,25 @@ class ViewController: UIViewController {
         
     }
 
+    func emoticonKeyBoard(_ emoticonKeyBoard: WXEmoticonKeyBoard, delectedEmotion: Any, deleteID: String) {
+        self.textField.deleteBackward()
+        print("删除--\(delectedEmotion)---\(deleteID)")
+    }
+    
+    func emoticonKeyBoard(_ emoticonKeyBoard: WXEmoticonKeyBoard, selectedEmotion: Any, selectedID: String) {
+        
+        if selectedEmotion is String {
+            let emoji = selectedEmotion as! String
+            let text = self.textField.text ?? ""
+            self.textField.text = text + emoji
+        } else {
+            let emoji = selectedEmotion as? (String,String)
+            let text = self.textField.text ?? ""
+            self.textField.text = text + (emoji?.0)!
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

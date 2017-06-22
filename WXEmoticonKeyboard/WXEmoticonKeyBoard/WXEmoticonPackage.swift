@@ -70,7 +70,6 @@ class WXEmoticonPackage: NSObject {
                     }
                 }
                 
-                
             }
             
             
@@ -78,7 +77,7 @@ class WXEmoticonPackage: NSObject {
     }
     
     
-    override init() {
+   private override init() {
         super.init()
        
     }

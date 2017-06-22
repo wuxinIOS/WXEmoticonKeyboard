@@ -23,7 +23,9 @@ class WXEmoticonCollectionView: UICollectionView {
     
     var lastIndexPath:IndexPath! = IndexPath(item: 0, section: 0)
     
-    var numberSection : Int! {
+    var sectionAndItem = [(Int,Int)]()
+    
+    var numberSection : [Int]! {
         
         didSet{
             self.reloadData()
@@ -31,7 +33,7 @@ class WXEmoticonCollectionView: UICollectionView {
     }
 
     
-    convenience init(frame:CGRect,section:Int){
+    convenience init(frame:CGRect,section:[Int]){
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
@@ -61,11 +63,12 @@ extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollecti
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return numberSection
+        return numberSection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberSection
+        
+        return numberSection[section]
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -49,8 +49,7 @@ class WXEmoticonKeyBoard: UIView {
     private override init(frame: CGRect) {
         super.init(frame:frame)
         setupUI()
-        let d = WXEmoticonDataManager.sharedEmoticonDataMaganer
-        print("单列\(d)")
+       
         
     }
     
@@ -66,16 +65,19 @@ extension WXEmoticonKeyBoard {
     
     fileprivate func setupUI() {
         setupBottomTool()
-        setupPageControl()
         setupCollectionView()
+        setupPageControl()
+
     }
     
     
     
     //MARK:--初始化表情主界面collectionView
     fileprivate func setupCollectionView(){
+        //FIXME:--修改表情主视图的cell的个数
+        let countArray = WXEmoticonDataManager.sharedEmoticonDataMaganer.numberOfItem(3, 7)
+        emoticonMainCollectionView = WXEmoticonCollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: emoticonMainCollectionViewHeight), section: countArray)
         
-        emoticonMainCollectionView = WXEmoticonCollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: emoticonMainCollectionViewHeight), section: dataSource.count)
         emoticonMainCollectionView.emoticonCollectionViewScrollDelegate = self
         
         addSubview(emoticonMainCollectionView)
@@ -86,7 +88,7 @@ extension WXEmoticonKeyBoard {
     fileprivate func setupPageControl(){
         
         pageControl = UIPageControl(frame: CGRect(x: 0, y:  emoticonMainCollectionViewHeight, width: UIScreen.main.bounds.width, height: pageControlHeight))
-        pageControl.numberOfPages = dataSource.count
+        pageControl.numberOfPages = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageGroupArray[0]
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = UIColor.red
         pageControl.isUserInteractionEnabled = false
@@ -111,7 +113,7 @@ extension WXEmoticonKeyBoard {
 extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate,WXEmoticonCollectionViewScrollDelegate {
     func emoticonKeyBoardBottomTool(emoticonToolbar: WXEmoticonKeyBoardBottomTool, didSelectItemAtIndex index: Int) {
         
-        print("点击了第\(index)个----\(emoticonKeyBoardTool.dataSource[index])")
+        //print("点击了第\(index)个----\(emoticonKeyBoardTool.dataSource[index])")
         let indextPaht = IndexPath(item: 0, section: index)
         
         emoticonMainCollectionView.scrollToItem(at: indextPaht, at: .right, animated: false)
@@ -131,8 +133,9 @@ extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate,WXEmoticonColl
             emoticonKeyBoardTool.emoticonKeyBoardBottomToolbar(scrollToIndex:indexPath.section)
             lastSelectedToolBarIndex = indexPath.section
         }
-        
+        pageControl.numberOfPages = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageGroupArray[indexPath.section]
         pageControl.currentPage = indexPath.item
+        
         
         
         

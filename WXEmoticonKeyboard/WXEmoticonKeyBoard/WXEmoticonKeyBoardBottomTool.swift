@@ -24,7 +24,6 @@ class WXEmoticonKeyBoardBottomTool: UIToolbar, UICollectionViewDelegateFlowLayou
     
     
     
-    
     weak var emoticonKeyBoardBottomToolBarDelegate: WXEmoticonBoardBottomToolBarDelegate?
     
     var dataSource  = [String]() {
@@ -41,10 +40,7 @@ class WXEmoticonKeyBoardBottomTool: UIToolbar, UICollectionViewDelegateFlowLayou
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let a = WXEmoticonDataManager.sharedEmoticonDataMaganer
-        print("单列2\(a)")
-        
-        
+               
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0

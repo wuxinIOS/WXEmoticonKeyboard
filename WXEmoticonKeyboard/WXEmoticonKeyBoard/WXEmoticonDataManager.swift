@@ -60,7 +60,7 @@ class WXEmoticonDataManager: NSObject {
         var packageOfGroupArray = [Int]()
         for i in 0..<emoticonPackageArray.count {
             let package = emoticonPackageArray[i]
-            let count = package.emoticons!.count % groupCount == 0 ? (package.emoticons!.count / groupCount) : (package.emoticons!.count / groupCount + 1)
+            let count = package.emoticons.count % groupCount == 0 ? (package.emoticons.count / groupCount) : (package.emoticons.count / groupCount + 1)
             packageOfGroupArray.append(count)
             
         }

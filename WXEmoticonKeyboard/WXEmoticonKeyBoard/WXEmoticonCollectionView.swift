@@ -11,7 +11,6 @@ import UIKit
 @objc protocol WXEmoticonCollectionViewScrollDelegate:NSObjectProtocol {
     
     func emoticonCollectionView(_ collectionView:WXEmoticonCollectionView,scrollToIndexPaht indexPath:IndexPath)
-    
 }
 
 
@@ -20,6 +19,8 @@ class WXEmoticonCollectionView: UICollectionView {
 
     
     weak var emoticonCollectionViewScrollDelegate: WXEmoticonCollectionViewScrollDelegate?
+    
+    let reuseIdentifier = "WXEmoticonCollectionViewCell"
     
     var lastIndexPath:IndexPath! = IndexPath(item: 0, section: 0)
     
@@ -41,7 +42,7 @@ class WXEmoticonCollectionView: UICollectionView {
         self.init(frame: frame, collectionViewLayout: layout)
         numberSection = section
         backgroundColor = UIColor.white
-        register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        register(WXEmoticonCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.delegate = self
         self.dataSource = self
         isPagingEnabled = true
@@ -72,20 +73,31 @@ extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        var label = cell.viewWithTag(1) as? UILabel
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! WXEmoticonCollectionViewCell
         
-        if let _ = label {
-            
+        //获取对应的表情包
+        let emoticonPackage = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageArray[indexPath.section]
+        
+        //获取对应cell的所有表情
+        var emoticons = [Any]()
+        if indexPath.item == numberSection[indexPath.section] - 1 {
+            //获取对应所有表情
+            let length = emoticonPackage.emoticons.count - (indexPath.item) * 20
+            let location = indexPath.item  * length
+            let range = NSRange(location: location, length: length)
+            emoticons = emoticonPackage.emoticons.subarray(with: range)
+
         } else {
+            //获取对应所有表情
+            let length = 20
+            let location = indexPath.item * length
+            let range = NSRange(location: location, length: length)
+            emoticons = emoticonPackage.emoticons.subarray(with: range)
             
-            label = UILabel(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
         }
         
-        label!.text = "\(indexPath.section)-\(indexPath.item)"
-
-        label!.tag = 1
-        cell.addSubview(label!)
+        cell.emotionArray = emoticons
+        
         
         return cell
     }
@@ -102,6 +114,16 @@ extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollecti
     //滚动
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        let indexPath = self.indexPathForItem(at: scrollView.contentOffset)
+        
+        if let delegate =  emoticonCollectionViewScrollDelegate,
+            let indexPath = indexPath {
+            
+            if delegate.responds(to: #selector(WXEmoticonCollectionViewScrollDelegate.emoticonCollectionView(_:scrollToIndexPaht:))) {
+                
+                delegate.emoticonCollectionView(self, scrollToIndexPaht: indexPath)
+            }
+        }
     }
     
     
@@ -122,10 +144,6 @@ extension WXEmoticonCollectionView:UICollectionViewDelegateFlowLayout,UICollecti
         }
         
     }
-    
-    
-    
-    
 }
 
 

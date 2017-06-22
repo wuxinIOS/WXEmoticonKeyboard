@@ -17,7 +17,7 @@ class WXEmoticonPackage: NSObject {
     var group_name_tw: String?
     var display_only: String?
     var group_type: String?
-    var emoticons: Array<Any>? = []
+    var emoticons: NSMutableArray = NSMutableArray()
     
     
    convenience init(withID id : String) {
@@ -46,7 +46,8 @@ class WXEmoticonPackage: NSObject {
                     if self.group_type == "2" { //默认表情
                         let emoticonModel = WXEmoticonModel()
                         emoticonModel.setValuesForKeys(dic)
-                        emoticons?.append(emoticonModel)
+                        emoticonModel.pngPath = WXEmoticonDataManager.emoticonBundlePath + "/\(id)/\(emoticonModel.png!)"
+                        emoticons.add(emoticonModel)
                         
                     } else { //Emoji表情
                         let dic = emoticonDic as! NSDictionary
@@ -64,7 +65,7 @@ class WXEmoticonPackage: NSObject {
                         let emojiModel = WXEmoticonEmojiModel()
                         emojiModel.code = code
                         emojiModel.emoji = "\(char)"
-                        emoticons?.append(emojiModel)
+                        emoticons.add(emojiModel)
 
                         
                     }

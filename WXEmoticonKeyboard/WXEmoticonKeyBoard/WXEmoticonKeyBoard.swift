@@ -135,9 +135,7 @@ extension WXEmoticonKeyBoard:WXEmoticonBoardBottomToolBarDelegate,WXEmoticonColl
         }
         pageControl.numberOfPages = WXEmoticonDataManager.sharedEmoticonDataMaganer.emoticonPackageGroupArray[indexPath.section]
         pageControl.currentPage = indexPath.item
-        
-        
-        
+        pageControl.updateCurrentPageDisplay()
         
     }
     

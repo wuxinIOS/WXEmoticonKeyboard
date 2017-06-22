@@ -15,6 +15,16 @@ class WXEmoticonModel: NSObject {
     var gif: String?
     var png: String?
     var type: String?
+    var pngPath: String?
+    
+    override func value(forUndefinedKey key: String) -> Any? {
+        if key == "pngPath" {
+            return nil
+        }
+        
+        return key
+    }
+    
     
 }
 
